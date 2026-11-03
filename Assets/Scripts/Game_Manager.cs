@@ -7,6 +7,7 @@ public class Game_Manager : MonoBehaviour
 {
     public int puntosJugador1 = 0;
     public int puntosJugador2 = 0;
+    public AudioClip pointsScoredSound;
     public TMP_Text marcador;
 
     // Start is called before the first frame update

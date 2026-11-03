@@ -6,12 +6,14 @@ public class BallController : MonoBehaviour
 {
     public float velocity = 10f;
     public Game_Manager game_Manager;
+    AudioSource _audioSource;
     Rigidbody2D _rb;
     float _lastHorizontalDirection = 1f;
     // Start is called before the first frame update
     void Start()
     {
         _rb = this.gameObject.GetComponent<Rigidbody2D>();
+        _audioSource = GetComponent<AudioSource>();
         LaunchBall(0);
     }
     private void FixedUpdate()
@@ -79,5 +81,7 @@ public class BallController : MonoBehaviour
         }
 
         Debug.Log("Ball Hit");
+        _audioSource.Play();
+        _audioSource.pitch = Random.Range(0.8f, 1.2f);
     }
 }
