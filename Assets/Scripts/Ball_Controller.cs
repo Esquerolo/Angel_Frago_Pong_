@@ -16,6 +16,14 @@ public class BallController : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         LaunchBall(0);
     }
+    private void Update()
+    {
+        timeAlive += Time.deltaTime;
+        if(timeAlive > 2f )
+        {
+            velocityMulty +=
+        }
+    }
     private void FixedUpdate()
     {
         if (_rb.velocity.magnitude > velocity)
@@ -63,6 +71,9 @@ public class BallController : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall_R"))
         {
         game_Manager.puntosJugador1++;
+
+
+            _audioSource.pitch = 1f;
         LaunchBall(-1); 
         }
             
@@ -71,6 +82,7 @@ public class BallController : MonoBehaviour
         }
 
         if (collision.gameObject.CompareTag("Wall_L"))
+            
         {  
         game_Manager.puntosJugador2++;
         LaunchBall(1);
