@@ -5,6 +5,8 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     public float velocity = 10f;
+    public float timeAlive;
+    public float velocityMulty;
     public Game_Manager game_Manager;
     AudioSource _audioSource;
     Rigidbody2D _rb;
@@ -16,14 +18,7 @@ public class BallController : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         LaunchBall(0);
     }
-    private void Update()
-    {
-        timeAlive += Time.deltaTime;
-        if(timeAlive > 2f )
-        {
-            velocityMulty +=
-        }
-    }
+    
     private void FixedUpdate()
     {
         if (_rb.velocity.magnitude > velocity)
@@ -96,4 +91,14 @@ public class BallController : MonoBehaviour
         _audioSource.Play();
         _audioSource.pitch = Random.Range(0.8f, 1.2f);
     }
+    private void Update()
+    {
+        timeAlive += Time.deltaTime;
+        if (timeAlive > 2f)
+        {
+            velocityMulty += 0.25f;
+            timeAlive = 0f;
+        }
+    }
 }
+
