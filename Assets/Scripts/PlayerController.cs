@@ -8,9 +8,48 @@ public class PlayerController : MonoBehaviour
     public float topheight;// Bottom limit of the paddle´s movement
     public float bottomheight;// If true, use arrow keys; if false, use W and S keys
     public bool useArrowKeys;
+    public bool IA;
+    public GameObject ball;
+
+    public float IAFollowTolerance;
     void Update()
     {
-        MovePaddle();
+        if (IA == false)
+        {
+            MovePaddle();
+        }
+        else
+        {
+            MovePaddleIA();
+        }
+    }
+
+    void MovePaddleIA()
+    {
+        int direccion = 0;
+
+        float diferencia = ball.transform.position.y - transform.position.y;
+
+
+        if (diferencia > IAFollowTolerance)
+        {
+            direccion = 1;
+        }
+        else if (diferencia < -IAFollowTolerance)
+        {
+            direccion = -1;
+        }
+
+        float nuevaY = this.gameObject.transform.position.y + (direccion * movespeed/2 * Time.deltaTime);
+        if (nuevaY > topheight)
+        {
+            nuevaY = topheight;
+        }
+        if (nuevaY < bottomheight)
+        {
+            nuevaY = bottomheight;
+        }
+        transform.position = new Vector3(transform.position.x, nuevaY, transform.position.z);
     }
     void MovePaddle()
     {

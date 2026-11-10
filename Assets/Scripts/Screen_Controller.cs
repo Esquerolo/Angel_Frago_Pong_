@@ -11,6 +11,7 @@ public class Screen_Controller : MonoBehaviour
         SceneManager.LoadScene(1);
 
     }
+
     public void ExitGame()
     {
 

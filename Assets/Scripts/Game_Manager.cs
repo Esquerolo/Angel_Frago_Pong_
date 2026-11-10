@@ -14,11 +14,12 @@ public class Game_Manager : MonoBehaviour
     public AudioSource _AudioSource;
     public TMP_Text textomarcador;
     public GameObject winPanel;
-   
+
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(puntosJugador1 + "|" + puntosJugador2);
+        Time.timeScale = 1f;
+        _AudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

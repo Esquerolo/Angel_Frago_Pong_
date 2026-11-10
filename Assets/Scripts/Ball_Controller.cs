@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    public float velocity = 10f;
+    public float BallVelocity = 10f;
     public float timeAlive;
-    public float velocityMulty;
+    public float velocityMulty = 1;
     public Game_Manager game_Manager;
     AudioSource _audioSource;
     Rigidbody2D _rb;
@@ -18,14 +18,14 @@ public class BallController : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         LaunchBall(0);
     }
-    
+
     private void FixedUpdate()
     {
-        if (_rb.velocity.magnitude > velocity)
+        if (_rb.velocity.magnitude > BallVelocity)
         {
-            _rb.velocity = _rb.velocity.normalized * velocity;
+            _rb.velocity = _rb.velocity.normalized * BallVelocity;
         }
-        if (Mathf.Abs(_rb.velocity.x) >= velocity * 0.3f)
+        if (Mathf.Abs(_rb.velocity.x) >= BallVelocity * 0.3f)
         {
             _lastHorizontalDirection = Mathf.Sign(_rb.velocity.x);
         }
@@ -38,12 +38,15 @@ public class BallController : MonoBehaviour
             }
             float minX = 0.3f;
             float y = Mathf.Sqrt(1f - minX * minX);
-            _rb.velocity = new Vector2(_lastHorizontalDirection * minX, yDirection * y) * velocity;
+            _rb.velocity = new Vector2(_lastHorizontalDirection * minX, yDirection * y) * BallVelocity;
         }
     }
     // Update is called once per frame
     void LaunchBall(int dir)
     {
+        velocityMulty = 1f;
+        timeAlive = 0f;
+        BallVelocity = 10f;
         this.transform.position = Vector2.zero;
         if (dir == 0)
         {
@@ -59,30 +62,30 @@ public class BallController : MonoBehaviour
         _rb.velocity = new Vector2(
             _lastHorizontalDirection,
             yVelocity
-        ).normalized * velocity;
+        ).normalized * BallVelocity;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall_R"))
         {
-        game_Manager.puntosJugador1++;
+            game_Manager.puntosJugador1++;
 
 
             _audioSource.pitch = 1f;
-        LaunchBall(-1); 
+            LaunchBall(-1);
         }
-            
+
         {
-        Debug.Log ("Right wall is being hitted");
+            Debug.Log("Right wall is being hitted");
         }
 
         if (collision.gameObject.CompareTag("Wall_L"))
-            
-        {  
-        game_Manager.puntosJugador2++;
-        LaunchBall(1);
+
+        {
+            game_Manager.puntosJugador2++;
+            LaunchBall(1);
         }
-           
+
         {
             Debug.Log("Left wall is being hitted");
         }
@@ -90,15 +93,19 @@ public class BallController : MonoBehaviour
         Debug.Log("Ball Hit");
         _audioSource.Play();
         _audioSource.pitch = Random.Range(0.8f, 1.2f);
+
     }
+
     private void Update()
     {
         timeAlive += Time.deltaTime;
-        if (timeAlive > 2f)
+        if (timeAlive > 2f && velocityMulty < 2f)
         {
             velocityMulty += 0.25f;
+            BallVelocity *= velocityMulty;
             timeAlive = 0f;
         }
     }
 }
+
 
