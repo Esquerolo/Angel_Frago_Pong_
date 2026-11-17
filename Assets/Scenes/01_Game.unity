@@ -427,7 +427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &336020644
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1599,10 +1599,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50db78fda8f488e4aa6bc987cd4f57b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BallVelocity: 10
-  timeAlive: 0
+  ballVelocity: 10
   velocityMulty: 1
-  game_Manager: {fileID: 212023103}
+  gameManager: {fileID: 212023103}
+  timeAlive: 0
 --- !u!58 &1663861428
 CircleCollider2D:
   m_ObjectHideFlags: 0
